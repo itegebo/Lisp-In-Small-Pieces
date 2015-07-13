@@ -11,7 +11,7 @@ included test suite, with one exception
 - [bigloo][] 4.1a
 - [gambit][] 4.7.4
 - [mit-scheme][] 9.2
-- [guile][] 2.0.11
+- [guile][] 2.0.11 (2.0.10 at a minimum - for SRFI-43)
 
 Running the code
 ----------------
