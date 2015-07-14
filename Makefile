@@ -42,6 +42,7 @@ BIGLOO = bigloo
 
 __HOSTTYPE__ != uname -m
 export HOSTTYPE=${__HOSTTYPE__}
+HOSTTYPE = x86_64
 
 # Choose a Scheme interpreter. This interpreter must contain Meroonet,
 # hygienic macros and a test-suite driver. It is better to build a
@@ -64,12 +65,12 @@ TIME = time
 # A temporary file used to store temporary results. Put it in a
 # place where it will disappear automatically sometime.
 
-RESULTS = /tmp/result
+RESULTS = o/${HOSTTYPE}/test.results
 
 # A temporary file used to store the names of failing tests when
 # running the grand.test target.
 
-FAILURES = /tmp/failures
+FAILURES = o/${HOSTTYPE}/test.failures
 
 # Make an archive grouping *.o files
 # You need it if you want to test the Scheme towards C compiler.
@@ -89,7 +90,9 @@ RANLIB = ranlib
 # command line. The `export' clause here will override it. -- appleby
 
 export CC=gcc
+CC=gcc
 export CFLAGS=-ansi -pedantic -Wall -O
+CFLAGS=-ansi -pedantic -Wall -O
 
 # This is perl. I use it for checking results of tests. It is not
 # mandatory to setup this variable.
@@ -98,12 +101,14 @@ PERL = perl
 
 # Absolute path to LiSP source root. -- appleby
 export LiSP_TOPDIR=${PWD}
+LiSP_TOPDIR = ${PWD}
 
 # Set the SHELL explicitly. Mit-scheme's run-shell-command respects
 # this variable, and some shell commands will fail if using a non-standard
 # shell (e.g. fish). -- appleby
 __SHELL__ != which sh
 export SHELL=${__SHELL__}
+SHELL = /bin/sh
 
 # This part of the Makefile defines how to run and test the programs
 # of the book.
@@ -1384,7 +1389,7 @@ mkdir :
 	-[ -d o/${HOSTTYPE} ] || mkdir o/${HOSTTYPE}
 
 # Clean or recursively clean directories.
-clean ::
+clean :
 	-rm -rf o/*
 
 # Create tags for editing sources with Gnu Emacs.
