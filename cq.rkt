@@ -1,0 +1,11 @@
+
+(define (read-file filename)
+  (define (input-to-list in lst)
+    (let ((i (read-syntax filename in)))
+      (if (eof-object? in)
+          (reverse lst)
+          (input-to-list in (cons i lst)))))
+  (let ((in (open-input-file filename))
+        (lst (input-to-list in '())))
+    (close-input-port in)
+    lst))
